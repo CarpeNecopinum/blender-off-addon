@@ -185,7 +185,7 @@ def load(operator, context, filepath):
     first_line = file.readline().rstrip()
     use_colors = (first_line == 'COFF')
     colors = []
-    
+
     # handle blank and comment lines after the first line
     line = file.readline()
     while line.isspace() or line[0]=='#':
@@ -246,9 +246,11 @@ def load(operator, context, filepath):
 
     if use_colors:
         color_data = mesh.vertex_colors.new()
+        write_idx = 0
         for i, facet in enumerate(mesh.polygons):
             for j, vidx in enumerate(facet.vertices):
-                color_data.data[3*i + j].color = colors[vidx]
+                color_data.data[write_idx].color = colors[vidx]
+                write_idx += 1
 
     return mesh
 
